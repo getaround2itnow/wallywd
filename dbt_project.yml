@@ -36,9 +36,7 @@ clean-targets:        # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  marvin_dbt_project:
-    example:
-      +schema: example  
+  marvin_dbt_project: 
     silver:
       +schema: silver
       +materialized: table
