@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+
+    - name: source
+
+      database: wallywd_s3_db
+
+      schema: BRONZE
+
+      tables:
+
+        - name: fact_COPY

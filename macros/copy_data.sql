@@ -6,25 +6,29 @@ FROM
 
 SELECT
 
-    $1 AS ProductId,
+    $1 AS Store,
 
-    $2 AS ProductName,
+    $2 AS Date,
 
-    $3 AS Category,
+    $3 AS Temperature,
 
-    $4 AS SellingPrice,
+    $4 AS Fuel_Price,
 
-    $5 AS ModelNumber,
+    $5 AS MarkDown1,
 
-    $6 AS AboutProduct,
+    $6 AS MarkDown2,
 
-    $7 AS ProductSpecification,
+    $7 AS MarkDown3,
 
-    $8 AS TechnicalDetails,
+    $8 AS MarkDown4,
 
-    $9 AS ShippingWeight,
+    $9 AS MarkDown5,
 
-    $10 AS ProductDimensions,
+    $10 AS CPI,
+
+    $11 AS Unemployment,
+    
+    $12 AS IsHoliday,
 
     CURRENT_TIMESTAMP() AS INSERT_DTS,
 
