@@ -11,3 +11,16 @@ sources:
       tables:
 
         - name: fact_COPY
+
+    - name: xfm
+
+      database: wallywd_s3_db
+
+      schema: SILVER
+
+      tables:
+
+        - name: fact_TRANSFORM
+
+
+    

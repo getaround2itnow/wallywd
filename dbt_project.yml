@@ -10,12 +10,11 @@ config-version: 2
 profile: 'default'
 
 vars:
-
-   wrk_schema: BRONZE
-   file_format_csv: wallywd_s3_db.BRONZE.CSV_FORMAT
-   purge_status: FALSE
-   stage_name: wallywd_s3_db.BRONZE.wallywd_scd2_stage
-   rawhist_db: wallywd_s3_db 
+  wrk_schema: BRONZE
+  file_format_csv: wallywd_s3_db.BRONZE.CSV_FORMAT
+  purge_status: false
+  stage_name: wallywd_s3_db.BRONZE.wallywd_scd2_stage
+  rawhist_db: wallywd_s3_db
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -45,9 +44,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   marvin_dbt_project:
-      silver:
-          +schema: silver
-          +materialized: table
-      gold:
-          +schema: gold
-          +materialized: view
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: view
