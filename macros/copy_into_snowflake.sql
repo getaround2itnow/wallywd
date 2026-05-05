@@ -25,6 +25,6 @@
         ")\n" ~
         "FILE_FORMAT = " ~ var('file_format_csv') ~ "\n" ~
         "PURGE = " ~ var('purge_status') ~ "\n" ~
-        "FORCE = FALSE;"
+        "FORCE = TRUE;"
     ) }}
 {% endmacro %}
