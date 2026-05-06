@@ -7,15 +7,15 @@
         "    SELECT\n" ~
         "        $1 AS Store,\n" ~
         "        $2 AS Date,\n" ~
-        "        NULLIF($3, 'NA') AS Temperature,\n" ~
-        "        NULLIF($4, 'NA') AS Fuel_Price,\n" ~
-        "        NULLIF($5, 'NA') AS MarkDown1,\n" ~
-        "        NULLIF($6, 'NA') AS MarkDown2,\n" ~
-        "        NULLIF($7, 'NA') AS MarkDown3,\n" ~
-        "        NULLIF($8, 'NA') AS MarkDown4,\n" ~
-        "        NULLIF($9, 'NA') AS MarkDown5,\n" ~
-        "        NULLIF($10, 'NA') AS CPI,\n" ~
-        "        NULLIF($11, 'NA') AS Unemployment,\n" ~
+        "        NULLIF($3, 'NA')::NUMBER(10,2) AS Temperature,\n" ~
+        "        NULLIF($4, 'NA')::NUMBER(10,3) AS Fuel_Price,\n" ~
+        "        NULLIF($5, 'NA')::NUMBER(10,2) AS MarkDown1,\n" ~
+        "        NULLIF($6, 'NA')::NUMBER(10,2) AS MarkDown2,\n" ~
+        "        NULLIF($7, 'NA')::NUMBER(10,2) AS MarkDown3,\n" ~
+        "        NULLIF($8, 'NA')::NUMBER(10,2) AS MarkDown4,\n" ~
+        "        NULLIF($9, 'NA')::NUMBER(10,2) AS MarkDown5,\n" ~
+        "        NULLIF($10, 'NA')::NUMBER(18,7) AS CPI,\n" ~
+        "        NULLIF($11, 'NA')::NUMBER(10,3) AS Unemployment,\n" ~
         "        $12 AS IsHoliday,\n" ~
         "        CURRENT_TIMESTAMP() AS INSERT_DTS,\n" ~
         "        CURRENT_TIMESTAMP() AS UPDATE_DTS,\n" ~

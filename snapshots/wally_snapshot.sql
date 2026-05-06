@@ -6,6 +6,7 @@ config(
   target_schema='snapshots',
   unique_key=['store', 'date'],
   strategy='check',
+  updated_at='UPDATE_DTS',
   check_cols=[
     'Temperature',
     'Fuel_Price',
