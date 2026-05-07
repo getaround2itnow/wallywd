@@ -1,52 +1,35 @@
-{{ config({
-    "materialized": 'view',
-    "alias": 'fact_VIEW',
-    "schema": 'GOLD'
-}) }}
+{{ config(
+  materialized='table',
+  schema='GOLD',
+  alias='fact_SCD2'
+) }}
 
-WITH base AS (
+SELECT
+  HASH(Store, Date, DBT_VALID_FROM) AS STORE_SIM_ID,
 
-    SELECT
-        Store,
-        DBT_VALID_FROM AS VRSN_STRT_DTS,
-        COALESCE(DBT_VALID_TO, TO_TIMESTAMP('9999-12-31 00:00:00')) AS VRSN_END_DTS,
+  Store,
+  Date,
 
-        CASE 
-            WHEN DBT_VALID_TO IS NULL THEN TRUE
-            ELSE FALSE
-        END AS IS_CURRENT,
+  DBT_VALID_FROM AS ValidFrom,
+  COALESCE(DBT_VALID_TO, TO_DATE('9999-12-31')) AS ValidTo,
 
-        Date,
-        SOURCE_FILE_ROW_NUMBER,
-        Temperature,
-        Fuel_Price,
-        MarkDown1,
-        MarkDown2,
-        MarkDown3,
-        MarkDown4,
-        MarkDown5,
-        CPI,
-        Unemployment,
-        IsHoliday,
-        INSERT_DTS,
-        UPDATE_DTS
+  CASE 
+    WHEN DBT_VALID_TO IS NULL THEN TRUE
+    ELSE FALSE
+  END AS IsCurrent,
 
-    FROM {{ ref('wally_snapshot') }}
-),
+  Temperature,
+  Fuel_Price,
+  MarkDown1,
+  MarkDown2,
+  MarkDown3,
+  MarkDown4,
+  MarkDown5,
+  CPI,
+  Unemployment,
+  IsHoliday,
 
-ranked AS (
+  INSERT_DTS,
+  UPDATE_DTS
 
-    SELECT
-        *,
-        ROW_NUMBER() OVER (
-            PARTITION BY Store, Date
-            ORDER BY VRSN_STRT_DTS DESC, SOURCE_FILE_ROW_NUMBER DESC
-        ) AS rn
-    FROM base
-    WHERE IS_CURRENT = TRUE
-
-)
-
-SELECT *
-FROM ranked
-WHERE rn = 1
+FROM {{ ref('wally_snapshot') }}
