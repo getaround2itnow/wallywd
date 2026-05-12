@@ -1,19 +1,33 @@
 {{ config(
   materialized='table',
+  database='WALLYWD_S3_DB',
   schema='GOLD',
   alias='fact_SCD2'
 ) }}
 
 SELECT
-  HASH(Store, Date, DBT_VALID_FROM) AS STORE_SIM_ID,
+
+  MD5(
+    CONCAT(
+      Store,
+      '|',
+      Date,
+      '|',
+      DBT_VALID_FROM
+    )
+  ) AS STORE_SIM_ID,
 
   Store,
   Date,
 
   DBT_VALID_FROM AS ValidFrom,
-  COALESCE(DBT_VALID_TO, TO_DATE('9999-12-31')) AS ValidTo,
 
-  CASE 
+  COALESCE(
+    DBT_VALID_TO,
+    TO_DATE('9999-12-31')
+  ) AS ValidTo,
+
+  CASE
     WHEN DBT_VALID_TO IS NULL THEN TRUE
     ELSE FALSE
   END AS IsCurrent,
@@ -30,6 +44,11 @@ SELECT
   IsHoliday,
 
   INSERT_DTS,
-  UPDATE_DTS
+
+CASE
+    WHEN DBT_VALID_TO IS NULL
+        THEN DBT_VALID_FROM
+    ELSE DBT_VALID_TO
+END AS UPDATE_DTS
 
 FROM {{ ref('wally_snapshot') }}
